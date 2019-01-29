@@ -1,0 +1,16 @@
+Package: BCB420.2019.EGGNOG
+Type: Package
+Title: EggNOG database annotatation of human genes 
+Version: 0.1.0
+Date: 2019-01-29
+Authors@R: c(
+    person("Boris", "Steipe", email = "boris.steipe@utoronto.ca", role = c("ctb"), comment = c(ORCID = "0000-0002-1134-6758")),
+    person("Deus", "Bajaj", email = "deus.bajaj@mail.utoronto.ca", role = c("aut","cre"), comment = c(ORCID = "0000-0003-1870-712X"))
+    )
+Description: Mapping tool from ensemple protein ID to HGNC symbol ID. 
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    testthat
+RoxygenNote: 6.1.1
