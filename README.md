@@ -248,7 +248,7 @@ load(file = file.path("inst", "extdata", "ensp2sym.RData"))
 
 &nbsp;
 
-# 4 Annotating gene sets with STRING Data
+# 4 Annotating gene sets with EggNOG Data
 
 Given our mapping tool, we can now annotate gene sets with EggNOG data. 
 
@@ -331,7 +331,7 @@ save(EggNOGedges, file = file.path("..", "data", "STRINGedges.RData"))
 
 &nbsp;
 
-This package script and code was created majorly based on the package [BCB420.2019.STRING](https://github.com/hyginn/BCB420.2019.STRING) 
+This package script was created and part of code was taken from the package [BCB420.2019.STRING](https://github.com/hyginn/BCB420.2019.STRING) 
 
 &nbsp;
 
