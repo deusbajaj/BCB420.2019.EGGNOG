@@ -327,11 +327,117 @@ save(EggNOGedges, file = file.path("..", "data", "STRINGedges.RData"))
 
 &nbsp;
 
-## 5 References
+## 5 Annotation of the example gene set
+
+To conclude, we annotate the example gene set, validate the annotation, and store the data.
+&nbsp;
+
+```R
+
+# The specification of the sample set is copy-paste from the 
+# BCB420 resources project.
+
+xSet <- c("AMBRA1", "ATG14", "ATP2A1", "ATP2A2", "ATP2A3", "BECN1", "BECN2",
+          "BIRC6", "BLOC1S1", "BLOC1S2", "BORCS5", "BORCS6", "BORCS7",
+          "BORCS8", "CACNA1A", "CALCOCO2", "CTTN", "DCTN1", "EPG5", "GABARAP",
+          "GABARAPL1", "GABARAPL2", "HDAC6", "HSPB8", "INPP5E", "IRGM",
+          "KXD1", "LAMP1", "LAMP2", "LAMP3", "LAMP5", "MAP1LC3A", "MAP1LC3B",
+          "MAP1LC3C", "MGRN1", "MYO1C", "MYO6", "NAPA", "NSF", "OPTN",
+          "OSBPL1A", "PI4K2A", "PIK3C3", "PLEKHM1", "PSEN1", "RAB20", "RAB21",
+          "RAB29", "RAB34", "RAB39A", "RAB7A", "RAB7B", "RPTOR", "RUBCN",
+          "RUBCNL", "SNAP29", "SNAP47", "SNAPIN", "SPG11", "STX17", "STX6",
+          "SYT7", "TARDBP", "TFEB", "TGM2", "TIFA", "TMEM175", "TOM1",
+          "TPCN1", "TPCN2", "TPPP", "TXNIP", "UVRAG", "VAMP3", "VAMP7",
+          "VAMP8", "VAPA", "VPS11", "VPS16", "VPS18", "VPS33A", "VPS39",
+          "VPS41", "VTI1B", "YKT6")
+
+# which example genes are not among the known nodes?
+x <- which( ! (xSet %in% c(EggNOGedges$ID)))
+cat(sprintf("\t%s\t(%s)\n", HGNC[xSet[x], "sym"], HGNC[xSet[x], "name"]))
+
+#ATP2A1	(ATPase sarcoplasmic/endoplasmic reticulum Ca2+ transporting 1)
+#ATP2A2	(ATPase sarcoplasmic/endoplasmic reticulum Ca2+ transporting 2)
+#ATP2A3	(ATPase sarcoplasmic/endoplasmic reticulum Ca2+ transporting 3)
+#BECN2	(beclin 2)
+#BLOC1S1	(biogenesis of lysosomal organelles complex 1 subunit 1)
+#BORCS6	(BLOC-1 related complex subunit 6)
+#BORCS7	(BLOC-1 related complex subunit 7)
+#BORCS8	(BLOC-1 related complex subunit 8)
+#CACNA1A	(calcium voltage-gated channel subunit alpha1 A)
+#CALCOCO2	(calcium binding and coiled-coil domain 2)
+#CTTN	(cortactin)
+#DCTN1	(dynactin subunit 1)
+#GABARAP	(GABA type A receptor-associated protein)
+#GABARAPL1	(GABA type A receptor associated protein like 1)
+#GABARAPL2	(GABA type A receptor associated protein like 2)
+#HDAC6	(histone deacetylase 6)
+#HSPB8	(heat shock protein family B (small) member 8)
+#INPP5E	(inositol polyphosphate-5-phosphatase E)
+#KXD1	(KxDL motif containing 1)
+#LAMP2	(lysosomal associated membrane protein 2)
+#MAP1LC3C	(microtubule associated protein 1 light chain 3 gamma)
+#MGRN1	(mahogunin ring finger 1)
+#MYO1C	(myosin IC)
+#MYO6	(myosin VI)
+#NAPA	(NSF attachment protein alpha)
+#OPTN	(optineurin)
+#OSBPL1A	(oxysterol binding protein like 1A)
+#PI4K2A	(phosphatidylinositol 4-kinase type 2 alpha)
+#PIK3C3	(phosphatidylinositol 3-kinase catalytic subunit type 3)
+#PLEKHM1	(pleckstrin homology and RUN domain containing M1)
+#PSEN1	(presenilin 1)
+#RAB21	(RAB21, member RAS oncogene family)
+#RAB34	(RAB34, member RAS oncogene family)
+#RAB39A	(RAB39A, member RAS oncogene family)
+#RAB7A	(RAB7A, member RAS oncogene family)
+#RAB7B	(RAB7B, member RAS oncogene family)
+#RPTOR	(regulatory associated protein of MTOR complex 1)
+#RUBCN	(rubicon autophagy regulator)
+#SNAP47	(synaptosome associated protein 47)
+#SNAPIN	(SNAP associated protein)
+#STX17	(syntaxin 17)
+#SYT7	(synaptotagmin 7)
+#TARDBP	(TAR DNA binding protein)
+#TFEB	(transcription factor EB)
+#TGM2	(transglutaminase 2)
+#TIFA	(TRAF interacting protein with forkhead associated domain)
+#TMEM175	(transmembrane protein 175)
+#TPCN1	(two pore segment channel 1)
+#TPCN2	(two pore segment channel 2)
+#TPPP	(tubulin polymerization promoting protein)
+#TXNIP	(thioredoxin interacting protein)
+#VAMP7	(vesicle associated membrane protein 7)
+#VAPA	(VAMP associated protein A)
+#VPS11	(VPS11, CORVET/HOPS core subunit)
+#VPS16	(VPS16, CORVET/HOPS core subunit)
+#VPS18	(VPS18, CORVET/HOPS core subunit)
+#VPS41	(VPS41, HOPS complex subunit)
+#YKT6	(YKT6 v-SNARE homolog)
+
+
+
+sel <- (EggNOGedges$ID %in% xSet)
+xSetEdges <- EggNOGedges[sel, c("ID")]
+# Statistics:
+nrow(xSetEdges)   # 27
+
+# Save the annotated set
+
+# Save the annotated set
+writeLines(c("ID",
+             sprintf("%s", xSetEdges$ID)),
+           con = "xSetEdges.tsv")
+```
 
 &nbsp;
 
-This package script was created and part of code was taken from the package [BCB420.2019.STRING](https://github.com/hyginn/BCB420.2019.STRING) 
+## 6 References
+
+&nbsp;
+
+This package script was created based on and part of code to create the mapping tool was taken from the package [BCB420.2019.STRING](https://github.com/hyginn/BCB420.2019.STRING) 
+
+The functionality and code of the toBrowser.R file was taken from Prof. Boris's [BCB course resources page](https://github.com/hyginn/BCB420-2019-resources)
 
 &nbsp;
 
